@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f3ee;
+  --foreground: #171a17;
 }
 
 @theme inline {
@@ -12,15 +12,101 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.field-input {
+  min-height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #cfc7b8;
+  background: #fffdfa;
+  padding: 8px 10px;
+  color: #171a17;
+  outline: none;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.field-input:focus {
+  border-color: #5f6f4f;
+  box-shadow: 0 0 0 3px rgba(95, 111, 79, 0.18);
+}
+
+.primary-button,
+.secondary-button,
+.danger-button {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 7px 12px;
+  font-size: 14px;
+  font-weight: 650;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+.primary-button {
+  background: #35452f;
+  color: #fffdfa;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #263321;
+}
+
+.secondary-button {
+  border-color: #cfc7b8;
+  background: #fffdfa;
+  color: #303229;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: #f1ede4;
+}
+
+.danger-button {
+  border-color: #d6b7aa;
+  background: #fff7f3;
+  color: #8a2f1f;
+}
+
+.danger-button:hover:not(:disabled) {
+  background: #ffe8df;
+}
+
+.table-cell {
+  border-bottom: 1px solid #e8e2d6;
+  padding: 12px 14px;
+  vertical-align: middle;
+}
+
+.table-empty {
+  padding: 44px 16px;
+  text-align: center;
+  color: #6f6a60;
+}
+
+.form-error {
+  color: #9c2f20;
+  font-size: 13px;
 }
