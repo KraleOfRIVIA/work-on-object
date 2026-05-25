@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: journal_user
       POSTGRES_PASSWORD: journal_password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,6 +16,22 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  web:
+    build:
+      context: .
+    container_name: work-on-object-web
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://journal_user:journal_password@postgres:5432/construction_journal?schema=public
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "${WEB_PORT:-3000}:3000"
 
 volumes:
   postgres_data:

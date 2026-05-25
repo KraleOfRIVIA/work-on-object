@@ -8,9 +8,46 @@ Full-stack приложение для ведения журнала выпол�
 - **Tailwind CSS 4** — быстрый и предсказуемый слой стилизации без отдельной UI-библиотеки.
 - **PostgreSQL** — настоящая база данных, данные не хранятся в памяти или файлах.
 - **Prisma 7** — типизированная работа с БД, миграции и seed справочника.
-- **Docker Compose** — простой локальный запуск PostgreSQL.
+- **Docker Compose** — запуск PostgreSQL и веб-приложения одной командой.
 
 ## Запуск
+
+Запустить БД, применить миграции, заполнить справочник и поднять веб-приложение:
+
+```bash
+docker compose up --build
+```
+
+Приложение будет доступно на [http://localhost:3000](http://localhost:3000).
+PostgreSQL проброшен на `localhost:5433`.
+
+Если порт `3000` занят:
+
+```bash
+WEB_PORT=3001 docker compose up --build
+```
+
+В Windows PowerShell:
+
+```powershell
+$env:WEB_PORT = "3001"; docker compose up --build
+```
+
+Приложение будет доступно на `http://localhost:3001`.
+
+Остановить стек:
+
+```bash
+docker compose down
+```
+
+Остановить стек и удалить данные БД:
+
+```bash
+docker compose down -v
+```
+
+## Локальная разработка без Docker для веба
 
 1. Установить зависимости:
 
@@ -30,10 +67,10 @@ cp .env.example .env
 Copy-Item .env.example .env
 ```
 
-3. Запустить PostgreSQL:
+3. Запустить только PostgreSQL:
 
 ```bash
-docker-compose up -d
+docker compose up -d postgres
 ```
 
 4. Применить миграции, сгенерировать Prisma Client и заполнить справочник видов работ:
@@ -49,8 +86,6 @@ pnpm prisma db seed
 ```bash
 pnpm dev
 ```
-
-Приложение будет доступно на [http://localhost:3000](http://localhost:3000).
 
 ## Проверка
 
